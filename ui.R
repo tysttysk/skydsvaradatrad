@@ -38,8 +38,8 @@ body = dashboardBody(
                       miljömål såsom Ett rikt odlingslandskap, Levande skogar och Ett rikt växt- och djurliv. "),
                       p("I en del regioner av landet har kunskapsinsamling avseende skyddsvärda träd redan gjorts i
                       större eller mindre omfattning, dock med sinsemellan något skild metodik. Föreliggande undersökningstyp är framtagen dels genom en översyn och sammanvägning av använda metoder
-                      (Ref. 1-4), dels i en strävan att harmonisera undersökningstyp och Trädportal. Vissa parametrar har utvecklats i mer objektiv riktning. ")
-                     
+                      (Ref. 1-4), dels i en strävan att harmonisera undersökningstyp och Trädportal. Vissa parametrar har utvecklats i mer objektiv riktning. "),
+                      p("Information från Naturvårdsverkets undersökningstyp Version1:0 : 2009-04-06")
                      ),
             tabPanel("Syfte",
                       p("Syftet med undersökningstypen är att tillhandahålla en nationellt enhetlig och uppföljningsbar
