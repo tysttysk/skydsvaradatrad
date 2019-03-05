@@ -1,8 +1,27 @@
 # UI side
 
-header = dashboardHeader()
+header = dashboardHeader(
+  dropdownMenu(
+    type = "messages",
+    messageItem(
+      from = "Matti",
+      message = "Kolla information om skyddsvärda träd!",
+      href = "https://www.lansstyrelsen.se/jonkoping/tjanster/publikationer/information-och-fakta/skyddsvarda-trad.html"
+    )
+  )
+)
 
-sidebar = dashboardSidebar()
+sidebar = dashboardSidebar(
+  sidebar <- dashboardSidebar(
+    sidebarMenu(
+      menuItem("Data",
+               tabName = "data"
+      ),
+      menuItem("Dashboard",
+               tabName = "dashboard")
+    )
+  )
+)
 
 body = dashboardBody()
 
