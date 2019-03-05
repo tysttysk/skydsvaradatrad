@@ -1,12 +1,12 @@
 # UI side
 
-header = dashboardHeader(
+header = dashboardHeader(title = "Skyddsvärda träd",
   dropdownMenu(
     type = "messages",
     messageItem(
       from = "Matti",
       message = "Kolla information om skyddsvärda träd!",
-      href = "https://www.lansstyrelsen.se/jonkoping/tjanster/publikationer/information-och-fakta/skyddsvarda-trad.html"
+      href = "https://www.naturvardsverket.se/upload/stod-i-miljoarbetet/vagledning/miljoovervakning/handledning/metoder/undersokningstyper/landskap/skyddsvarda-trad.pdf"
     )
   )
 )
@@ -14,8 +14,8 @@ header = dashboardHeader(
 sidebar = dashboardSidebar(
   sidebar <- dashboardSidebar(
     sidebarMenu(
-      menuItem("Data",
-               tabName = "data"
+      menuItem("Information",
+               tabName = "info"
       ),
       menuItem("Dashboard",
                tabName = "dashboard")
@@ -23,7 +23,43 @@ sidebar = dashboardSidebar(
   )
 )
 
-body = dashboardBody()
+body = dashboardBody(
+  tabItems(
+    tabItem(tabName = "info",
+          tabBox(
+            tabPanel("Bakgrund", 
+                      p("Biologisk mångfald utgörs av den mosaik av naturtyper, livsmiljöer och organismer som finns
+                      i landskapet – i odlade marker, i vattendrag och sjöar liksom i våtmarker och skogar. En stor
+                      del av den biologiska mångfalden är knuten till gamla träd i kulturlandskapet. "),
+                      p("I själva verket är dessa träd i många avseenden nyckeln till bevarandet av en mängd hotade
+                      växter och djur. God kunskap om tillståndet i miljöer med skyddsvärda träd ökar förutsättningarna för att bevara och förstärka de natur- och kulturvärden som är kopplade till dessa
+                      miljöer. Kunskap om var värdefulla miljöer finns ökar också förutsättningarna för människor
+                      till ett rikt friluftsliv och en god folkhälsa. Undersökningstypen har därför stark koppling till
+                      miljömål såsom Ett rikt odlingslandskap, Levande skogar och Ett rikt växt- och djurliv. "),
+                      p("I en del regioner av landet har kunskapsinsamling avseende skyddsvärda träd redan gjorts i
+                      större eller mindre omfattning, dock med sinsemellan något skild metodik. Föreliggande undersökningstyp är framtagen dels genom en översyn och sammanvägning av använda metoder
+                      (Ref. 1-4), dels i en strävan att harmonisera undersökningstyp och Trädportal. Vissa parametrar har utvecklats i mer objektiv riktning. ")
+                     
+                     ),
+            tabPanel("Syfte",
+                      p("Syftet med undersökningstypen är att tillhandahålla en nationellt enhetlig och uppföljningsbar
+                     metod för inventering och miljöövervakning av miljöer med skyddsvärda träd. Inventering av
+                     skyddsvärda träd med datafångst som visar antal och fördelning av träd, förekomst av håligheter m.m. ger, 
+                     tillsammans med datafångst för omvärldsparametrar ett bra underlag för bedömning av ett träds eller ett områdes skötselbehov eller bevarandestatus."),
+                      p("Vid inventering av större landskapsavsnitt utgör insamlade data ett värdefullt instrument för
+                      naturvård med landskapsstrategisk inriktning. "))
+    )
+),            
+          
+    tabItem(tabName = "dashboard",
+          fluidRow(
+            tabBox(
+              tabPanel("Data som tabell", "Data tabell"),
+              tabPanel("Visualiseringar", "Visualsiering"))
+      )            
+    )
+  ) 
+)
 
 dashboardPage(
   header=header,
