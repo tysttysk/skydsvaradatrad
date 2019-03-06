@@ -1,14 +1,20 @@
 ---
-title: Skyddsvärda träd visualsation with shiny
-author: Matti Ermold
+Title: Skyddsvärda träd visualsation with shiny
 ---
 
-# idea
+# Idea
 
 This is my shiny dashboard app to visualize the results of the inventory of protected trees from Jonkoping county.
 
-## background 
+# Background 
 
 The database of protected trees in Jonkoping county consits to date (march 2019) of around 160 000 observations of
 valuable trees. There exists data on tree circumference, type of tree, health of tree as well as in which municipality
 the tree is located.
+
+# Data and code
+
+The code as well as the data is stored in this repository. If you want to see the Shiny app in action head over to
+https://webviz.ml
+
+# lets see whre this gets us! :)
