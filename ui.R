@@ -54,7 +54,7 @@ body = dashboardBody(
     tabItem(tabName = "dashboard",
           fluidRow(
             tabBox(
-              tabPanel("Data som tabell", "Data tabell"),
+              tabPanel("Data som tabell", DT::dataTableOutput(outputId="DataSk")),
               tabPanel("Visualiseringar", "Visualsiering"))
       )            
     )
