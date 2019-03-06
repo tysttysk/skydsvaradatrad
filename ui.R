@@ -55,7 +55,29 @@ body = dashboardBody(
           fluidRow(
             tabBox(
               tabPanel("Data som tabell", DT::dataTableOutput(outputId="DataSk")),
-              tabPanel("Visualiseringar", "Visualsiering"))
+              tabPanel("Visualiseringar", 
+                       selectInput(
+                         inputId = "IntToPlot",
+                         label = "Bara Stamomkrets selekterbar för nu",
+                         choices = c("Stamomkret"),
+                         selected = "Stamomkret"
+                         
+                       ),
+                       
+                       #selector for categorcial variable to plot
+                       
+                       selectInput(
+                         inputId = "StrToPlot",
+                         label = "Välj en kategori",
+                         choices = c("Kommun", "Tradslag", "Skyddsvrde", "Tradstatus"),
+                         selected = "Kommun"
+                         
+                       ), 
+                       
+                       plotOutput(outputId="BarPlot")
+                       
+          )
+        )
       )            
     )
   ) 
