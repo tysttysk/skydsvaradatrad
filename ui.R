@@ -18,7 +18,10 @@ sidebar = dashboardSidebar(
                tabName = "info"
       ),
       menuItem("Dashboard",
-               tabName = "dashboard")
+               tabName = "dashboard"
+      ),
+      menuItem("Karta",
+               tabName = "karta")
     )
   )
 )
@@ -27,6 +30,13 @@ body = dashboardBody(
   tabItems(
     tabItem(tabName = "info",
           tabBox(
+            tabPanel("Välkommen",
+                     p("Hej, den här webapplikation innehåller information om projektet Skyddsvärda träd i Jönköpings län. 
+                       Informationen om skyddsvärda träd samlades in sedan 2008 och kontinuerlig uppdaters eller nya observationer läggs till"),
+                     p("På de följande flikar hittar du bakgrundinformation om inventering av skyddsvärda träd som tabell såväl som informativ grafik och karta.
+                       Du har möjligheten att välja ut vilken information ska visas i tabell, figurer och kartbild genom att använda navigera till fliken dashboard och karta på vänster sidan.
+                       I framtiden kommer det även finnas möjligheten att ladda ner tabeller och kartblad efter din filterering.")
+                       ),
             tabPanel("Bakgrund", 
                       p("Biologisk mångfald utgörs av den mosaik av naturtyper, livsmiljöer och organismer som finns
                       i landskapet – i odlade marker, i vattendrag och sjöar liksom i våtmarker och skogar. En stor
@@ -78,6 +88,12 @@ body = dashboardBody(
                        
           )
         )
+    ),
+
+    tabItem(tabName = "karta",
+            
+            tabBox(width = 12,
+                   tabPanel("Karta", leafletOutput(outputId="SKmap")))
     )
   ) 
 )
