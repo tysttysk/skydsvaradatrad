@@ -15,6 +15,6 @@ the tree is located.
 # Data and code
 
 The code as well as the data is stored in this repository. If you want to see the Shiny app in action head over to
-https://webviz.ml
+https://webviz.ml/shiny/skydsvardatrad/. More functionallity will be added in the future and perhaps not all features in this code made it into production. Feel free to suggest features.
 
-# lets see whre this gets us! :)
+# lets see where this gets us! :) 
