@@ -66,6 +66,39 @@ body = dashboardBody(
             tabBox(width = 12,
               tabPanel("Data som tabell", DT::dataTableOutput(outputId="DataSk")),
               tabPanel("Visualiseringar", 
+                       
+                       sliderInput(inputId = "stamk",
+                                   label = "Trädiameter inkluderat",
+                                   min = min(sktradjkp$Stamomkret),
+                                   max = max(sktradjkp$Stamomkret),
+                                   value = c(min(sktradjkp$Stamomkret),max(sktradjkp$Stamomkret)),
+                                   sep = "",
+                                   step = 10
+                       ),
+                       
+                       selectizeInput(inputId = "KomS",
+                                      label = "Välj en eller flera kommuner",
+                                      choices = unique(sktradjkp$Kommun),
+                                      multiple = T,
+                                      selected = "Jönköping"
+                       ),
+                       
+                       selectizeInput(inputId = "TraS",
+                                      label = "Välj en eller flera Trädslag",
+                                      choices = unique(sktradjkp$Tradslag),
+                                      multiple = T,
+                                      selected = " "
+                       ),
+                       
+                       selectizeInput(inputId = "SkyS",
+                                      label = "Välj en eller skyddsvärden",
+                                      choices = unique(sktradjkp$Skyddsvrde),
+                                      multiple = T,
+                                      selected = " "
+                       ),
+                       
+                       plotOutput(outputId="BarPlot"),
+                       
                        selectInput(
                          inputId = "IntToPlot",
                          label = "Bara Stamomkrets selekterbar för nu",
@@ -82,9 +115,7 @@ body = dashboardBody(
                          choices = c("Kommun", "Tradslag", "Skyddsvrde", "Tradstatus"),
                          selected = "Kommun"
                          
-                       ), 
-                       
-                       plotOutput(outputId="BarPlot")
+                       )
                        
           )
         )
