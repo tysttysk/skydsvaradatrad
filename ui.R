@@ -4,9 +4,9 @@ header = dashboardHeader(title = "Skyddsvärda träd",
   dropdownMenu(
     type = "messages",
     messageItem(
-      from = "Matti",
-      message = "Kolla information om skyddsvärda träd!",
-      href = "https://www.naturvardsverket.se/upload/stod-i-miljoarbetet/vagledning/miljoovervakning/handledning/metoder/undersokningstyper/landskap/skyddsvarda-trad.pdf"
+      from = "Author",
+      message = "Klicka för mer information om skyddsvärda träd!",
+      href = "https://www.lansstyrelsen.se/download/18.4df86bcd164893b7cd92a924/1534321611646/broschyr-skyddsvarda-trad.pdf"
     )
   )
 )
@@ -17,11 +17,35 @@ sidebar = dashboardSidebar(
       menuItem("Information",
                tabName = "info"
       ),
-      menuItem("Dashboard",
-               tabName = "dashboard"
+      sliderInput(inputId = "stamk",
+                  label = "Trädiameter inkluderat",
+                  min = min(sktradjkp$Stamomkret),
+                  max = max(sktradjkp$Stamomkret),
+                  value = c(min(sktradjkp$Stamomkret), max(sktradjkp$Stamomkret)),
+                  sep = "",
+                  step = 10,
+                  post = " cm "
       ),
-      menuItem("Karta",
-               tabName = "karta")
+      selectizeInput(inputId = "KomS",
+                     label = "Välj en eller flera kommuner",
+                     choices = unique(sktradjkp$Kommun),
+                     multiple = T,
+                     selected = "Jönköping"
+      ),
+      
+      selectizeInput(inputId = "TraS",
+                     label = "Välj en eller flera Trädslag",
+                     choices = unique(sktradjkp$Tradslag),
+                     multiple = T,
+                     selected = "Ek"
+      ),
+      
+      selectizeInput(inputId = "TraSt",
+                     label = "Välj en eller flera trädstatus",
+                     choices = unique(sktradjkp$Tradstatus),
+                     multiple = T,
+                     selected = "Friskt"
+      )
     )
   )
 )
@@ -37,96 +61,26 @@ body = dashboardBody(
                        Du har möjligheten att välja ut vilken information ska visas i tabell, figurer och kartbild genom att använda navigera till fliken dashboard och karta på vänster sidan.
                        I framtiden kommer det även finnas möjligheten att ladda ner tabeller och kartblad efter din filterering.")
                        ),
-            tabPanel("Bakgrund", 
-                      p("Biologisk mångfald utgörs av den mosaik av naturtyper, livsmiljöer och organismer som finns
-                      i landskapet – i odlade marker, i vattendrag och sjöar liksom i våtmarker och skogar. En stor
-                      del av den biologiska mångfalden är knuten till gamla träd i kulturlandskapet. "),
-                      p("I själva verket är dessa träd i många avseenden nyckeln till bevarandet av en mängd hotade
-                      växter och djur. God kunskap om tillståndet i miljöer med skyddsvärda träd ökar förutsättningarna för att bevara och förstärka de natur- och kulturvärden som är kopplade till dessa
-                      miljöer. Kunskap om var värdefulla miljöer finns ökar också förutsättningarna för människor
-                      till ett rikt friluftsliv och en god folkhälsa. Undersökningstypen har därför stark koppling till
-                      miljömål såsom Ett rikt odlingslandskap, Levande skogar och Ett rikt växt- och djurliv. "),
-                      p("I en del regioner av landet har kunskapsinsamling avseende skyddsvärda träd redan gjorts i
-                      större eller mindre omfattning, dock med sinsemellan något skild metodik. Föreliggande undersökningstyp är framtagen dels genom en översyn och sammanvägning av använda metoder
-                      (Ref. 1-4), dels i en strävan att harmonisera undersökningstyp och Trädportal. Vissa parametrar har utvecklats i mer objektiv riktning. "),
-                      p("Information från Naturvårdsverkets undersökningstyp Version1:0 : 2009-04-06")
-                     ),
-            tabPanel("Syfte",
-                      p("Syftet med undersökningstypen är att tillhandahålla en nationellt enhetlig och uppföljningsbar
-                     metod för inventering och miljöövervakning av miljöer med skyddsvärda träd. Inventering av
-                     skyddsvärda träd med datafångst som visar antal och fördelning av träd, förekomst av håligheter m.m. ger, 
-                     tillsammans med datafångst för omvärldsparametrar ett bra underlag för bedömning av ett träds eller ett områdes skötselbehov eller bevarandestatus."),
-                      p("Vid inventering av större landskapsavsnitt utgör insamlade data ett värdefullt instrument för
-                      naturvård med landskapsstrategisk inriktning. "))
+            tabPanel("Data som tabell", dataTableOutput(outputId="DataSk"),
+                     downloadButton("download", "Ladda ner resultatet")
+                        ),
+            tabPanel("Visualisering", plotlyOutput(outputId="BarPlot"),
+                    
+                     #selector for categorcial variable to plot
+                     
+                     selectInput(
+                       inputId = "StrToPlot",
+                       label = "Välj en kategori",
+                       choices = c("Kommun", "Tradslag", "Tradstatus"),
+                       selected = "Kommun"
+                       
+                     )
+                        ),
+            tabPanel("Karta", leafletOutput(outputId="SKmap")
+                )        
+            )
+        )    
     )
-),            
-          
-    tabItem(tabName = "dashboard",
-          
-            tabBox(width = 12,
-              tabPanel("Data som tabell", DT::dataTableOutput(outputId="DataSk")),
-              tabPanel("Visualiseringar", 
-                       
-                       sliderInput(inputId = "stamk",
-                                   label = "Trädiameter inkluderat",
-                                   min = min(sktradjkp$Stamomkret),
-                                   max = max(sktradjkp$Stamomkret),
-                                   value = c(min(sktradjkp$Stamomkret),max(sktradjkp$Stamomkret)),
-                                   sep = "",
-                                   step = 10
-                       ),
-                       
-                       selectizeInput(inputId = "KomS",
-                                      label = "Välj en eller flera kommuner",
-                                      choices = unique(sktradjkp$Kommun),
-                                      multiple = T,
-                                      selected = "Jönköping"
-                       ),
-                       
-                       selectizeInput(inputId = "TraS",
-                                      label = "Välj en eller flera Trädslag",
-                                      choices = unique(sktradjkp$Tradslag),
-                                      multiple = T,
-                                      selected = " "
-                       ),
-                       
-                       selectizeInput(inputId = "SkyS",
-                                      label = "Välj en eller skyddsvärden",
-                                      choices = unique(sktradjkp$Skyddsvrde),
-                                      multiple = T,
-                                      selected = " "
-                       ),
-                       
-                       plotOutput(outputId="BarPlot"),
-                       
-                       selectInput(
-                         inputId = "IntToPlot",
-                         label = "Bara Stamomkrets selekterbar för nu",
-                         choices = c("Stamomkret"),
-                         selected = "Stamomkret"
-                         
-                       ),
-                       
-                       #selector for categorcial variable to plot
-                       
-                       selectInput(
-                         inputId = "StrToPlot",
-                         label = "Välj en kategori",
-                         choices = c("Kommun", "Tradslag", "Skyddsvrde", "Tradstatus"),
-                         selected = "Kommun"
-                         
-                       )
-                       
-          )
-        )
-    ),
-
-    tabItem(tabName = "karta",
-            
-            tabBox(width = 12,
-                   tabPanel("Karta", leafletOutput(outputId="SKmap")))
-    )
-  ) 
 )
 
 dashboardPage(
