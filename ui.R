@@ -27,24 +27,25 @@ sidebar = dashboardSidebar(
                   post = " cm "
       ),
       selectizeInput(inputId = "KomS",
-                     label = "Välj en eller flera kommuner",
+                     label = "Filtrera efter kommun",
                      choices = unique(sktradjkp$Kommun),
                      multiple = T,
-                     selected = "Jönköping"
+                     selected = " "
+                     
       ),
       
       selectizeInput(inputId = "TraS",
-                     label = "Välj en eller flera Trädslag",
+                     label = "Filtrera efter trädslag",
                      choices = unique(sktradjkp$Tradslag),
                      multiple = T,
-                     selected = "Ek"
+                     selected = " "
       ),
       
       selectizeInput(inputId = "TraSt",
-                     label = "Välj en eller flera trädstatus",
+                     label = "Filtrera efter trädstatus",
                      choices = unique(sktradjkp$Tradstatus),
                      multiple = T,
-                     selected = "Friskt"
+                     selected = " "
       )
     )
   )
@@ -56,10 +57,16 @@ body = dashboardBody(
           tabBox(
             tabPanel("Välkommen",
                      p("Hej, den här webapplikation innehåller information om projektet Skyddsvärda träd i Jönköpings län. 
-                       Informationen om skyddsvärda träd samlades in sedan 2008 och kontinuerlig uppdaters eller nya observationer läggs till"),
-                     p("På de följande flikar hittar du bakgrundinformation om inventering av skyddsvärda träd som tabell såväl som informativ grafik och karta.
-                       Du har möjligheten att välja ut vilken information ska visas i tabell, figurer och kartbild genom att använda navigera till fliken dashboard och karta på vänster sidan.
-                       I framtiden kommer det även finnas möjligheten att ladda ner tabeller och kartblad efter din filterering.")
+                       Informationen om skyddsvärda träd samlades in sedan 2008 och kontinuerlig läggs till nya observationer. 
+                       I dagsläget finns det mer än 167 000 trädobservationer i länet. "),
+                     p("På de flikar till höger hittar du information om inventering av skyddsvärda träd i form av en datatabell 
+                      som du kan även ladda ner men även som informativ grafik och karta."),
+                     p("Du har möjligheten att välja ut vilken information ska visas i tabell, figurer och kartbild genom att använda 
+                      de menueran på vänster sidan. Välj t.ex. mellan olika stamomkretsar 
+                      och ser hur många observationer def finns för de valda parameter. Kolla vilka kommun i länet har i genomsnitt 
+                      de största skyddsvärda träd. Var finns de träd med största diameter? 
+                      Vilken trädslag har dom? Och vilken status befinner de sig? Är de risk eller har låg vitalitet?"),
+                     p("Det är din möjlighet att undersöka all den fantastiskt information. Kör igång!")
                        ),
             tabPanel("Data som tabell", dataTableOutput(outputId="DataSk"),
                      downloadButton("download", "Ladda ner resultatet")
@@ -74,9 +81,13 @@ body = dashboardBody(
                        choices = c("Kommun", "Tradslag", "Tradstatus"),
                        selected = "Kommun"
                        
-                     )
+                     ),
+                     
+                     plotOutput(outputId="coolplot")
+                     
                         ),
             tabPanel("Karta", leafletOutput(outputId="SKmap")
+                    
                 )        
             )
         )    
