@@ -67,7 +67,9 @@ body = dashboardBody(
             tabPanel("Data som tabell", dataTableOutput(outputId="DataSk"),
                      downloadButton("download", "Ladda ner resultatet")
                         ),
-            tabPanel("Visualisering", plotlyOutput(outputId="BarPlot"),
+            tabPanel("Visualisering", textOutput("summaryText"),
+                     
+                     plotlyOutput(outputId="BarPlot"),
                     
                      #selector for categorcial variable to plot
                      
@@ -81,8 +83,12 @@ body = dashboardBody(
                      
                      plotOutput(outputId="coolplot")
                      
-                        ),
-            tabPanel("Karta", leafletOutput(outputId="SKmap")
+                     
+                      ),
+            tabPanel("Karta", textOutput("sumText"),
+                     leafletOutput(outputId="SKmap")
+                     
+                     
                     
                 )        
             )
