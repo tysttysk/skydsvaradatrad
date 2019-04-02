@@ -18,6 +18,32 @@ shinyServer(function(input, output, session)
       write.xlsx(data_fil(), file)
     }
   )  
+  
+  output$kommunSelektOutput <- renderUI({
+    selectizeInput(inputId = "KomS",
+                   label = "Filtrera efter kommun",
+                   choices = unique(sktradjkp$Kommun),
+                   multiple = T,
+                   selected = "Jönköping"
+                   
+    )
+  })   
+  output$tradslagSelektOutput <- renderUI({  
+  selectizeInput(inputId = "TraS",
+                 label = "Filtrera efter trädslag",
+                 choices = unique(sktradjkp$Tradslag),
+                 multiple = T,
+                 selected = "Ek"
+  )
+}) 
+  output$tradstatusSelektOutput <- renderUI({
+  selectizeInput(inputId = "TraSt",
+                 label = "Filtrera efter trädstatus",
+                 choices = unique(sktradjkp$Tradstatus),
+                 multiple = T,
+                 selected = "Friskt"
+  )
+})  
 # Add visualzations od both datatable and graphics
   
 output$DataSk <- DT::renderDataTable(DT::datatable(data_fil(), rownames = FALSE, 
@@ -44,12 +70,17 @@ output$SKmap <- renderLeaflet(
   data_fil() %>%
     leaflet() %>%
     addTiles() %>%
-    setView(lng = 14.16, lat = 57.78, zoom = 10) %>%
+    setView(lng = 14.16, lat = 57.78, zoom = 7) %>%
     addMarkers(
       lng= ~lon, lat= ~lat,
-      popup= ~ Stamomkret  
+      popup= paste("Stamomkrets i cm:", data_fil()$Stamomkret, "<br>",
+                   "Trädslag:", data_fil()$Tradslag, "<br>",
+                   "Trädstatus:", data_fil()$Tradstatus
+        
+          )
+        )  
     )
-)
+
 })
 
 
