@@ -5,8 +5,8 @@ header = dashboardHeader(title = "Skyddsvärda träd",
     type = "messages",
     messageItem(
       from = "Author",
-      message = "Klicka för mer information om skyddsvärda träd!",
-      href = "https://www.lansstyrelsen.se/download/18.4df86bcd164893b7cd92a924/1534321611646/broschyr-skyddsvarda-trad.pdf"
+      message = "Klicka för mer information om skyddsvärda träd!", 
+      href = "https://www.lansstyrelsen.se/download/18.4df86bcd164893b7cd92a924/1534321611646/broschyr-skyddsvarda-trad.pdf" 
     )
   )
 )
@@ -26,27 +26,23 @@ sidebar = dashboardSidebar(
                   step = 10,
                   post = " cm "
       ),
-      selectizeInput(inputId = "KomS",
-                     label = "Filtrera efter kommun",
-                     choices = unique(sktradjkp$Kommun),
-                     multiple = T,
-                     selected = " "
-                     
+      checkboxInput("filtreraKommun", "Filtrera efter kommun", FALSE),
+      conditionalPanel(
+        condition = "input.filtreraKommun",
+        uiOutput("kommunSelektOutput")
       ),
       
-      selectizeInput(inputId = "TraS",
-                     label = "Filtrera efter trädslag",
-                     choices = unique(sktradjkp$Tradslag),
-                     multiple = T,
-                     selected = " "
+      checkboxInput("filtreraTradslag", "Filtrera efter trädslag", FALSE),
+      conditionalPanel(
+        condition = "input.filtreraTradslag",
+        uiOutput("tradslagSelektOutput")
       ),
       
-      selectizeInput(inputId = "TraSt",
-                     label = "Filtrera efter trädstatus",
-                     choices = unique(sktradjkp$Tradstatus),
-                     multiple = T,
-                     selected = " "
-      )
+      checkboxInput("filtreraTradsstatus", "Filtrera efter trädsstatus", FALSE),
+      conditionalPanel(
+        condition = "input.filtreraTradsstatus",
+        uiOutput("tradstatusSelektOutput")
+      ) 
     )
   )
 )
