@@ -44,6 +44,22 @@ shinyServer(function(input, output, session)
                  selected = "Friskt"
   )
 })  
+  
+  output$summaryText <- renderText({
+    numOptions <- nrow(data_fil())
+    if (is.null(numOptions)) {
+      numOptions <- 0
+    }
+    paste0("Du har valt ", numOptions, " observationer")
+  })  
+  
+  output$sumText <- renderText({
+    numOptions <- nrow(data_fil())
+    if (is.null(numOptions)) {
+      numOptions <- 0
+    }
+    paste0("Du har valt ", numOptions, " observationer")
+  })
 # Add visualzations od both datatable and graphics
   
 output$DataSk <- DT::renderDataTable(DT::datatable(data_fil(), rownames = FALSE, 
