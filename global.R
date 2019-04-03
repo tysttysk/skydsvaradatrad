@@ -3,15 +3,13 @@
 library(shiny)
 library(leaflet)
 library(ggplot2)
-library(readr)
 library(DT)
 library(dplyr)
 library(shinydashboard)
-library(rio)
-library(sf)
 library(plotly)
-library(readxl)
+library(leaflet.extras)
 library(xlsx)
+library(bbplot)
 
 load("sktrad.Rdata")
 
@@ -28,35 +26,6 @@ options ( encoding = "UTF-8" )
 #data = import(unz(loadzip, "LSTF.miljoovervakning_skyddstrad_flan_alla.dbf"))
 #unlink(loadzip)
 
-#skimmed <- reactive({
-#  sktradjkp %>%
-#    filter(Kommun == input$KomS,
-#           Tradslag == input$TraS,
-#           Skyddsvrede == input$SkyS,
-#           Tradstatus == input$TraSt	
-#    )
-#})
 
-#filterSk <- reactive({
- # filterSk <- sktradjkp
-  
-  #if (is.null(input$KomS)) {
-   # return(NULL)
-  #}
-  
-#  filterSk <- dplyr::filter(filterSk, Tradslag %in% input$TraS)
- # if (input$KomS) {
-  #  filterSk <- dplyr::filter(filterSk, Kommun == input$KomS)
-  #}
-  
-  #if(nrow(filterSk) == 0) {
-    #return(NULL)
-  #}
-  #filterSk
-#})
-
-#var = reactive({
- # sktradjkp[, input$KomS]
-#})
 
 
