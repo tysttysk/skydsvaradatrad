@@ -70,15 +70,21 @@ output$DataSk <- DT::renderDataTable(DT::datatable(data_fil(), rownames = FALSE,
 output$BarPlot <- renderPlotly({
   ggplotly(
   ggplot(data_fil(), aes_string(x=input$StrToPlot, y="Stamomkret")) + 
-    stat_summary(fun.y="mean", geom="bar") + theme(axis.text.x = element_text(angle = 45, hjust = 1,size=12)) 
+    stat_summary(fun.y="mean", geom="bar", fill="#1380A1") + theme(axis.text.x = element_text(angle = 45, hjust = 1,size=12)) +
+    geom_hline(yintercept = 0, size = 1, colour="#333333") +
+    bbc_style() 
   )
    
     })
 
 output$coolplot <- renderPlot({
-  
   ggplot(data_fil(), aes_string("Stamomkret")) +
-    geom_histogram()
+    geom_histogram(colour = "white", fill = "#1380A1") +
+    geom_hline(yintercept = 0, size = 1, colour="#333333") +
+    bbc_style() +
+    scale_x_continuous(limits = c(0, 1000),
+                       breaks = seq(0, 1000, by = 100),
+                       labels = c("0", "100", "200", "300", "400", "500", "600", "700", "800", "900", "1000 cm"))
   
 })
  
@@ -91,12 +97,14 @@ output$SKmap <- renderLeaflet(
       lng= ~lon, lat= ~lat,
       popup= paste("Stamomkrets i cm:", data_fil()$Stamomkret, "<br>",
                    "Trädslag:", data_fil()$Tradslag, "<br>",
-                   "Trädstatus:", data_fil()$Tradstatus
-        
-          )
-        )  
-    )
-
+                   "Trädstatus:", data_fil()$Tradstatus, "<br>",
+                   "Inventeringsdatum:", data_fil()$Inv_datum, "<br>",
+                   "Lat:", data_fil()$lat, "Long:", data_fil()$lon)) %>%
+    addControlGPS(options = gpsOptions(position = "topleft", activate = TRUE, 
+                                       autoCenter = TRUE, maxZoom = 10, 
+                                       setView = TRUE)) %>% 
+    activateGPS()
+  )   
 })
 
 
