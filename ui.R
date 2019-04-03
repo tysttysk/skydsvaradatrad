@@ -50,7 +50,7 @@ sidebar = dashboardSidebar(
 body = dashboardBody(
   tabItems(
     tabItem(tabName = "info",
-          tabBox(
+          tabBox(width = 12,
             tabPanel("Välkommen",
                      p("Hej, den här webapplikation innehåller information om projektet Skyddsvärda träd i Jönköpings län. 
                        Informationen om skyddsvärda träd samlades in sedan 2008 och kontinuerlig läggs till nya observationer. 
@@ -58,19 +58,31 @@ body = dashboardBody(
                      p("På de flikar till höger hittar du information om inventering av skyddsvärda träd i form av en datatabell 
                       som du kan även ladda ner men även som informativ grafik och karta."),
                      p("Du har möjligheten att välja ut vilken information ska visas i tabell, figurer och kartbild genom att använda 
-                      de menueran på vänster sidan. Välj t.ex. mellan olika stamomkretsar 
+                      de menyer på vänster sidan. Välj t.ex. mellan olika stamomkretsar 
                       och ser hur många observationer def finns för de valda parameter. Kolla vilka kommun i länet har i genomsnitt 
                       de största skyddsvärda träd. Var finns de träd med största diameter? 
                       Vilken trädslag har dom? Och vilken status befinner de sig? Är de risk eller har låg vitalitet?"),
-                     p("Det är din möjlighet att undersöka all den fantastiskt information. Kör igång!")
+                     p("Det är din möjlighet att undersöka all den fantastiskt information digital men varför inte åka ut och besöka en av trädet med hjäl av kartan."), 
+                     p(" Kör igång!")
                        ),
-            tabPanel("Data som tabell", dataTableOutput(outputId="DataSk"),
+            tabPanel("Data som tabell", 
+                     br(),
+                     p("Här kan du ser du resultat av inventeringen i form av en tabell. Du kan sortera i tabellen med hjälp av pilerna. 
+                       Notera hur antal observationer förändrar sig (vänster-nedre delen) när du filtrera efter Stramomkrets. Om du vill ladda observationer
+                       för att själv studera dom använd nedladdningskanppen under tabellen."),
+                     br(),
+                     dataTableOutput(outputId="DataSk"),
+                     br(),
                      downloadButton("download", "Ladda ner resultatet")
                         ),
-            tabPanel("Visualisering", textOutput("summaryText"),
+            tabPanel("Visualisering",
+                     p(" "),
+                     p("Den första visualisering visar den genomsnittliga stamomkrets för tre olika parameter (Kommun, Trädslag och Trädstatus)."),
+                     p(" "),
+                     textOutput("summaryText"),
                      
                      plotlyOutput(outputId="BarPlot"),
-                    
+                     p(" "),
                      #selector for categorcial variable to plot
                      
                      selectInput(
@@ -80,7 +92,9 @@ body = dashboardBody(
                        selected = "Kommun"
                        
                      ),
-                     
+                     p("------------------------------------------------------------------------"),
+                     p("Denna plot visar en histogram som visualisera hur många observationer det finns per stamomkretsklass"),
+                     p(" "),
                      plotOutput(outputId="coolplot")
                      
                      
