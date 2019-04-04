@@ -7,7 +7,7 @@ shinyServer(function(input, output, session)
   data_fil <- reactive({
     data <- subset(
       sktradjkp,
-      Stamomkret >= input$stamk[1] & Stamomkret <= input$stamk[2]
+      Stamomkret >= input$stamk[1] & Stamomkret <= input$stamk[2] & Kommun %in% input$KomS & Tradslag %in% input$TraS & Tradstatus %in% input$TraSt
      )
 })  
   
