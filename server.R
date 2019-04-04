@@ -5,11 +5,33 @@ shinyServer(function(input, output, session)
 {  
   
   data_fil <- reactive({
+    data <- sktradjkp
+    
     data <- subset(
-      sktradjkp,
-      Stamomkret >= input$stamk[1] & Stamomkret <= input$stamk[2] & Kommun %in% input$KomS & Tradslag %in% input$TraS & Tradstatus %in% input$TraSt
-     )
-})  
+      data,
+      Stamomkret >= input$stamk[1] & Stamomkret <= input$stamk[2])
+      
+      if (input$filtreraKommun) {
+       data <- subset(
+         data,
+         Kommun %in% input$KomS)
+     }
+    
+      if (input$filtreraTradslag) {
+       data <- subset(
+         data,
+         Tradslag %in% input$TraS)
+     }
+    
+      if (input$filtreraTradsstatus) {
+      data <- subset(
+        data,
+        Tradstatus %in% input$TraSt)
+    }
+    
+    data    
+      
+  })  
   
   output$download <- downloadHandler(
     filename = "data.xlsx",
