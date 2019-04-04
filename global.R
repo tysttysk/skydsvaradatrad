@@ -10,6 +10,7 @@ library(plotly)
 library(leaflet.extras)
 library(xlsx)
 library(bbplot)
+library(MASS)
 
 load("sktrad.Rdata")
 
