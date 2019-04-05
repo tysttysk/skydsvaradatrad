@@ -52,22 +52,32 @@ body = dashboardBody(
     tabItem(tabName = "info",
           tabBox(width = 12,
             tabPanel("Välkommen",
+                           fluidRow(
+                              column(12,
                      p("Hej, den här webapplikation innehåller information om projektet Skyddsvärda träd i Jönköpings län. 
-                       Informationen om skyddsvärda träd samlades in sedan 2008 och kontinuerlig läggs till nya observationer. 
+                       Informationen om skyddsvärda träd samlades in sedan 2008 och det läggs till nya observationer kontinuerligt. 
                        I dagsläget finns det mer än 167 000 trädobservationer i länet. "),
+                     br(),
+                     p(img(src="tree.jpg", align = "center")),
+                     br())),
+                          fluidRow(
+                              column(4,
+                     p("Bild: Länsstyrelsen i Jönköping ©" ),
+                     br())),
+                            fluidRow(
+                              column(12, 
                      p("På de flikar till höger hittar du information om inventering av skyddsvärda träd i form av en datatabell 
-                      som du kan även ladda ner men även som informativ grafik och karta."),
+                      som du kan även ladda. Du har också möjlighet att ta del av informationen via olika figurer och en karta."),
                      p("Du har möjligheten att välja ut vilken information ska visas i tabell, figurer och kartbild genom att använda 
                       de menyer på vänster sidan. Välj t.ex. mellan olika stamomkretsar 
-                      och ser hur många observationer def finns för de valda parameter. Kolla vilka kommun i länet har i genomsnitt 
-                      de största skyddsvärda träd. Var finns de träd med största diameter? 
-                      Vilken trädslag har dom? Och vilken status befinner de sig? Är de risk eller har låg vitalitet?"),
+                      och ser hur många observationer def finns för de valda parameter. Var finns de träd med största diameter? 
+                      Vilken trädslag har dom? Och vilken status befinner de sig? Är de frisk eller har dom låg vitalitet?"),
                      p("Det är din möjlighet att undersöka all den fantastiskt information digital men varför inte åka ut och besöka en av trädet med hjäl av kartan."), 
                      p(" Kör igång!")
-                       ),
+                       ))),
             tabPanel("Data som tabell", 
                      br(),
-                     p("Här kan du ser du resultat av inventeringen i form av en tabell. Du kan sortera i tabellen med hjälp av pilerna. 
+                     p("Här kan du ser du resultat av inventeringen i form av en tabell. Du kan sortera i tabellen med hjälp av pilarna. 
                        Notera hur antal observationer förändrar sig (vänster-nedre delen) när du filtrera efter Stramomkrets. Om du vill ladda observationer
                        för att själv studera dom använd nedladdningskanppen under tabellen."),
                      br(),
@@ -100,7 +110,7 @@ body = dashboardBody(
                      
                       ),
             tabPanel("Karta", textOutput("sumText"),
-                     leafletOutput(outputId="SKmap")
+                     leafletOutput(outputId="SKmap", width ="100%", height =800)
                      
                      
                     
